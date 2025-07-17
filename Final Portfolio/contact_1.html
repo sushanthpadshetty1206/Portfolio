@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Contact - Sushanth's Portfolio</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="styles.css">
+  <style>
+    .contact-form {
+      background: var(--bg-dark);
+      padding: 2rem;
+      border-radius: 0.8rem;
+      border: 2px solid var(--secondary-color);
+      max-width: 500px;
+      margin: 2rem auto;
+    }
+    
+    .form-group {
+      margin-bottom: 1.2rem;
+    }
+    
+    label {
+      display: block;
+      margin-bottom: 0.5rem;
+      font-size: 1rem;
+    }
+    
+    input, textarea {
+      width: 100%;
+      padding: 0.8rem;
+      border: 1px solid var(--secondary-color);
+      border-radius: 0.4rem;
+      background: rgba(0, 0, 0, 0.3);
+      color: var(--primary-color);
+      font-size: 1rem;
+    }
+    
+    input:focus, textarea:focus {
+      outline: none;
+      border-color: var(--accent-color);
+    }
+    
+    button {
+      background-color: var(--secondary-color);
+      color: var(--primary-color);
+      padding: 0.8rem;
+      border: 1px solid var(--primary-color);
+      border-radius: 0.4rem;
+      font-size: 1rem;
+      cursor: pointer;
+      width: 100%;
+      transition: background-color 0.3s;
+    }
+    
+    button:hover {
+      background-color: var(--accent-color);
+    }
+    
+    .error-message {
+      color: var(--accent-color);
+      font-size: 0.8rem;
+      margin-top: 0.3rem;
+      display: none;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="nav-container">
+      <div class="page-heading">CONTACT US</div>
+      <nav>
+        <div class="nav-links">
+          <a href="home_1.html" class="nav-link">Home</a>
+          <a href="aboutme_1.html" class="nav-link">About Me</a>
+          <a href="gallery_1.html" class="nav-link">Gallery</a>
+          <a href="contact_1.html" class="nav-link active">Contact</a>
+        </div>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container">
+    <form class="contact-form" id="contactForm">
+      <div class="form-group">
+        <label for="name">Name:</label>
+        <input type="text" id="name" name="name" placeholder="Your Name">
+        <div class="error-message" id="nameError">Name must contain only alphabets</div>
+      </div>
+      
+      <div class="form-group">
+        <label for="email">Email:</label>
+        <input type="email" id="email" name="email" placeholder="Your Email">
+        <div class="error-message" id="emailError">Enter a valid email address</div>
+      </div>
+      
+      <div class="form-group">
+        <label for="password">Password:</label>
+        <input type="password" id="password" name="password" placeholder="Your Password">
+        <div class="error-message" id="passwordError">6-14 chars with letters, numbers, @#&</div>
+      </div>
+      
+      <div class="form-group">
+        <label for="phone">Phone:</label>
+        <input type="tel" id="phone" name="phone" placeholder="Phone Number">
+        <div class="error-message" id="phoneError">Must be exactly 10 digits</div>
+      </div>
+      
+      <div class="form-group">
+        <label for="message">Message:</label>
+        <textarea id="message" name="message" rows="4" placeholder="Your Message"></textarea>
+      </div>
+      
+      <button type="submit">SEND MESSAGE</button>
+    </form>
+  </main>
+
+  <footer>
+    <p>&copy; 2025 Sushanth Padshetty. All Rights Reserved.</p>
+  </footer>
+
+  <script>
+    document.getElementById('contactForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+      
+      let isValid = true;
+      const name = document.getElementById("name").value;
+      const email = document.getElementById("email").value;
+      const password = document.getElementById("password").value;
+      const phone = document.getElementById("phone").value;
+      
+      const nameRegex = /^[A-Za-z\s]+$/;
+      const passwordRegex = /^[A-Za-z0-9@#&]{6,14}$/;
+      const phoneRegex = /^\d{10}$/;
+      
+      document.querySelectorAll('.error-message').forEach(el => {
+        el.style.display = 'none';
+      });
+      
+      if (!nameRegex.test(name)) {
+        document.getElementById('nameError').style.display = 'block';
+        isValid = false;
+      }
+      
+      if (!email.includes("@") || !email.includes(".")) {
+        document.getElementById('emailError').style.display = 'block';
+        isValid = false;
+      }
+      
+      if (!passwordRegex.test(password)) {
+        document.getElementById('passwordError').style.display = 'block';
+        isValid = false;
+      }
+      
+      if (!phoneRegex.test(phone)) {
+        document.getElementById('phoneError').style.display = 'block';
+        isValid = false;
+      }
+      
+      if (isValid) {
+        alert("Message sent successfully!\nWe'll contact you soon.");
+        this.reset();
+      }
+    });
+
+    document.querySelectorAll('input, textarea').forEach(input => {
+      input.addEventListener('input', function() {
+        const errorId = this.id + 'Error';
+        if (document.getElementById(errorId)) {
+          document.getElementById(errorId).style.display = 'none';
+        }
+      });
+    });
+  </script>
+</body>
+</html>

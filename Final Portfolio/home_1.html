@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Sushanth's Portfolio</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="styles.css">
+  <style>
+    .content {
+      background: var(--bg-dark);
+      padding: 2rem;
+      border-radius: 0.8rem;
+      border: 2px solid var(--secondary-color);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 2rem;
+      max-width: 1000px;
+      margin: 2rem auto;
+    }
+    
+    @media (min-width: 768px) {
+      .content {
+        flex-direction: row;
+        align-items: flex-start;
+      }
+    }
+    
+    .profile-img {
+      border-radius: 50%;
+      border: 3px solid var(--secondary-color);
+      width: 250px;
+      height: 250px;
+      object-fit: cover;
+      flex-shrink: 0;
+    }
+    
+    .about-text {
+      flex: 1;
+      font-size: 1.05rem;
+      line-height: 1.8;
+    }
+    
+    audio {
+      margin: 1.5rem auto;
+      width: 90%;
+      max-width: 300px;
+      display: block;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="nav-container">
+      <div class="page-heading">SUSHANTH PADSHETTY</div>
+      <nav>
+        <div class="nav-links">
+          <a href="home_1.html" class="nav-link active">Home</a>
+          <a href="aboutme_1.html" class="nav-link">About Me</a>
+          <a href="gallery_1.html" class="nav-link">Gallery</a>
+          <a href="contact_1.html" class="nav-link">Contact</a>
+        </div>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container">
+    <div class="content">
+      <img src="sus.jpg" alt="Sushanth" class="profile-img">
+      <div class="about-text">
+        <p>I was born in Mannaekhelli, Karnataka, on 12th June 2005, and I currently reside in Vijayawada. I am currently pursuing my Bachelor of Technology in SRM AP University.</p>
+        <p>I can speak four languages: Kannada, which is my mother tongue, Telugu, Hindi, and English. We are a family of four, including my younger brother and both of my parents.</p>
+        <p>Alongside my studies, I like to spend time on personal hobbies. I am a huge fan of sports, especially Cricket and Formula 1.</p>
+      </div>
+    </div>
+
+    <audio controls autoplay loop>
+      <source src="starwars.mp3" type="audio/mpeg">
+      Your browser does not support the audio element.
+    </audio>
+  </main>
+
+  <footer>
+    <p>&copy; 2025 Sushanth Padshetty. All Rights Reserved.</p>
+  </footer>
+</body>
+</html>

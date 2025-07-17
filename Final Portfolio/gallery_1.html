@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Gallery - Sushanth's Portfolio</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="styles.css">
+  <style>
+    .gallery-container {
+      max-width: 700px;
+      margin: 2rem auto;
+    }
+    
+    .carousel-container {
+      position: relative;
+      overflow: hidden;
+      border-radius: 0.8rem;
+      border: 2px solid var(--secondary-color);
+      box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+    }
+    
+    .carousel {
+      display: flex;
+      transition: transform 0.5s ease;
+    }
+    
+    .carousel-slide {
+      min-width: 100%;
+    }
+    
+    .carousel-slide img {
+      width: 100%;
+      height: 350px;
+      object-fit: cover;
+    }
+    
+    .slide-caption {
+      background: var(--bg-dark);
+      padding: 1rem;
+      text-align: center;
+      border-top: 2px solid var(--secondary-color);
+    }
+    
+    .slide-title {
+      font-family: 'Aptos Narrow', sans-serif;
+      font-size: 1.2rem;
+      margin-bottom: 0.3rem;
+    }
+    
+    .carousel-btn {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      background: rgba(0, 0, 0, 0.5);
+      color: var(--primary-color);
+      border: none;
+      padding: 0.5rem;
+      cursor: pointer;
+      font-size: 1.2rem;
+      z-index: 10;
+      border-radius: 50%;
+      width: 2.2rem;
+      height: 2.2rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0.8;
+      transition: opacity 0.3s;
+    }
+    
+    .carousel-btn:hover {
+      opacity: 1;
+    }
+    
+    #prevBtn {
+      left: 1rem;
+    }
+    
+    #nextBtn {
+      right: 1rem;
+    }
+    
+    @media (max-width: 768px) {
+      .carousel-slide img {
+        height: 250px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="nav-container">
+      <div class="page-heading">GALLERY</div>
+      <nav>
+        <div class="nav-links">
+          <a href="home_1.html" class="nav-link">Home</a>
+          <a href="aboutme_1.html" class="nav-link">About Me</a>
+          <a href="gallery_1.html" class="nav-link active">Gallery</a>
+          <a href="contact_1.html" class="nav-link">Contact</a>
+        </div>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container">
+    <div class="gallery-container">
+      <div class="carousel-container">
+        <div class="carousel">
+          <div class="carousel-slide">
+            <img src="ethnicday.jpg" alt="Ethnic Day">
+            <div class="slide-caption">
+              <div class="slide-title">Ethnic Day</div>
+              <div class="slide-text">A beautiful memory from Ethnic Day celebrations</div>
+            </div>
+          </div>
+          <div class="carousel-slide">
+            <img src="jwst.jpg" alt="James Webb Space Telescope">
+            <div class="slide-caption">
+              <div class="slide-title">James Webb Space Telescope</div>
+              <div class="slide-text">Exploring the universe with advanced technology</div>
+            </div>
+          </div>
+          <div class="carousel-slide">
+            <img src="aiml.jpg" alt="AIML certificate">
+            <div class="slide-caption">
+              <div class="slide-title">AIML certificate</div>
+              <div class="slide-text">Certificate in Machine Learning in Biomedical Signal Processing</div>
+            </div>
+          </div>
+          <div class="carousel-slide">
+            <img src="aiml1.jpg" alt="AIML certificate">
+            <div class="slide-caption">
+              <div class="slide-title">AIML certificate</div>
+              <div class="slide-text">Certificate in AI Design Challenges </div>
+            </div>
+          </div>
+        </div>
+        <button class="carousel-btn" id="prevBtn">&#10094;</button>
+        <button class="carousel-btn" id="nextBtn">&#10095;</button>
+      </div>
+    </div>
+  </main>
+
+  <footer>
+    <p>&copy; 2025 Sushanth Padshetty. All Rights Reserved.</p>
+  </footer>
+
+  <script>
+    const carousel = document.querySelector('.carousel');
+    const slides = document.querySelectorAll('.carousel-slide');
+    const prevBtn = document.getElementById('prevBtn');
+    const nextBtn = document.getElementById('nextBtn');
+    let currentIndex = 0;
+    const slideCount = slides.length;
+    let autoSlideInterval;
+
+    function updateCarousel() {
+      carousel.style.transform = `translateX(-${currentIndex * 100}%)`;
+    }
+
+    function nextSlide() {
+      currentIndex = (currentIndex + 1) % slideCount;
+      updateCarousel();
+    }
+
+    function prevSlide() {
+      currentIndex = (currentIndex - 1 + slideCount) % slideCount;
+      updateCarousel();
+    }
+
+    function startAutoSlide() {
+      autoSlideInterval = setInterval(nextSlide, 5000);
+    }
+
+    function stopAutoSlide() {
+      clearInterval(autoSlideInterval);
+    }
+
+    nextBtn.addEventListener('click', () => {
+      nextSlide();
+      stopAutoSlide();
+      startAutoSlide();
+    });
+
+    prevBtn.addEventListener('click', () => {
+      prevSlide();
+      stopAutoSlide();
+      startAutoSlide();
+    });
+
+    startAutoSlide();
+
+    document.querySelector('.carousel-container').addEventListener('mouseenter', stopAutoSlide);
+    document.querySelector('.carousel-container').addEventListener('mouseleave', startAutoSlide);
+
+    let touchStartX = 0;
+    let touchEndX = 0;
+
+    document.querySelector('.carousel-container').addEventListener('touchstart', (e) => {
+      touchStartX = e.changedTouches[0].screenX;
+      stopAutoSlide();
+    });
+
+    document.querySelector('.carousel-container').addEventListener('touchend', (e) => {
+      touchEndX = e.changedTouches[0].screenX;
+      handleSwipe();
+      startAutoSlide();
+    });
+
+    function handleSwipe() {
+      if (touchEndX < touchStartX - 50) nextSlide();
+      if (touchEndX > touchStartX + 50) prevSlide();
+    }
+  </script>
+</body>
+</html>
